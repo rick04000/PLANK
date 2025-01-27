@@ -38,7 +38,7 @@ window.addEventListener("resize", () => {
 let planksterModel;
 const loader = new GLTFLoader();
 loader.load(
-  'assets/plank.glb', // Bestaat in public-map
+  '/assets/plank.glb', // Bestaat in public-map
   (gltf) => {
     planksterModel = gltf.scene;
     planksterModel.scale.set(1, 1, 1);
