@@ -1,86 +1,268 @@
-/* /styles.css */
-/* Reset */
-body {
+/******************************************************
+ * styles.css - Plankster ($PLNK) Website Styling
+ * 
+ * 1. Cartoonish Aesthetic: Bold colors, chunky borders,
+ *    playful fonts, and edgy design elements.
+ * 2. Responsive Layout: Scales gracefully for desktop
+ *    and mobile screens.
+ ******************************************************/
+
+/* ---------------------- */
+/* 1. Global Reset & Fonts */
+/* ---------------------- */
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    background-color: #faf0d7; /* Subtle off-white reminiscent of cartoon backgrounds */
+    color: #2d2d2d; /* Main text color */
+    overflow-x: hidden;
+  }
+  
+  /* ------------------- */
+  /* 2. Basic Structures */
+  /* ------------------- */
+  
+  /* Header & Navigation */
+  header {
+    width: 100%;
+    background: linear-gradient(to right, #f8d52e 0%, #f28322 100%);
+    color: #262626;
+    padding: 1rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 4px solid #c13f3f; /* Edgy accent */
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    text-shadow: 2px 2px #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  
+  nav ul {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    gap: 1.5rem;
+    list-style: none;
+    margin-top: 0.5rem;
   }
   
-  /* Main app container */
-  #app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #2d2d2d;
+    transition: color 0.3s;
+  }
+  
+  nav ul li a:hover {
+    color: #c13f3f;
+  }
+  
+  /* Main Content */
+  main {
+    padding: 2rem;
+  }
+  
+  /* Sections */
+  section {
+    margin-bottom: 2rem;
+  }
+  
+  section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #c13f3f;
+  }
+  
+  /* Footer */
+  footer {
     text-align: center;
-    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8d52e;
+    border-top: 4px solid #c13f3f;
   }
   
-  /* Model container */
-  #model-container {
-    width: 600px;
-    height: 400px;
-    background-color: #cce7ff;
-    border: 2px solid #005f99;
+  footer p {
+    font-size: 0.9rem;
+    color: #2d2d2d;
+  }
+  
+  /* -------------------------------- */
+  /* 3. The 3D Scene & Canvas Overlay */
+  /* -------------------------------- */
+  
+  /* Canvas that Three.js renders into */
+  #planksterCanvas {
+    display: block;
+    width: 100%;
+    max-width: 1000px; /* Limit the width on large screens */
+    height: 600px;     /* Fixed height for consistent 3D viewing */
+    margin: 0 auto;
+    background: #eae7d7;
+    border: 4px dashed #f28322; /* Edgy cartoonish border */
     border-radius: 8px;
-    position: relative;
-    overflow: hidden;
   }
   
-  /* Controls */
-  #controls {
+  /* Info overlay for level & mood */
+  #infoOverlay {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
+    background-color: rgba(248, 213, 46, 0.85);
+    padding: 0.5rem 1rem;
+    border: 2px solid #c13f3f;
+    border-radius: 4px;
+    font-weight: bold;
   }
   
-  #controls button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #007acc;
-    color: white;
+  #infoOverlay p {
+    margin: 0;
+  }
+  
+  /* -------------------------------------------------- */
+  /* 4. Interaction Controls: Buttons & Feedback Message */
+  /* -------------------------------------------------- */
+  
+  #plankster-interactions {
+    text-align: center;
+  }
+  
+  #plankster-interactions button {
+    background: #c13f3f;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s, transform 0.2s;
   }
   
-  #controls button:hover {
-    background-color: #005f99;
+  #plankster-interactions button:hover {
+    background: #a12f2f;
+    transform: scale(1.05);
   }
   
-  #controls select {
-    padding: 0.5rem;
+  #plankster-interactions button:active {
+    transform: scale(0.95);
+  }
+  
+  #feedbackMsg {
+    margin-top: 1rem;
+    font-style: italic;
+    min-height: 1.5rem; /* Reserve space for messages so page doesn't jump */
+  }
+  
+  /* -------------------- */
+  /* 5. Minigame / “Scam” */
+  /* -------------------- */
+  
+  #minigames {
+    text-align: center;
+  }
+  
+  #startScamBtn {
+    background: #f28322;
+    color: #2d2d2d;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
     font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
   }
   
-  /* Status indicators */
-  #status-indicators {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    font-size: 1rem;
+  #startScamBtn:hover {
+    background: #da6711;
+    transform: scale(1.05);
   }
   
-  /* Animations */
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
+  #startScamBtn:active {
+    transform: scale(0.95);
+  }
+  
+  #scamGameArea {
+    background: #faf0d7;
+    border: 4px dotted #f28322;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 500px;
+  }
+  
+  #scamGameArea p {
+    color: #2d2d2d;
+  }
+  
+  /* ------------------------------------- */
+  /* 6. Responsive Adjustments (Media Queries) */
+  /* ------------------------------------- */
+  
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 1.5rem;
     }
-    50% {
-      transform: translateY(-10px);
+  
+    nav ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  
+    main {
+      padding: 1rem;
+    }
+  
+    #planksterCanvas {
+      height: 300px; /* Smaller height for mobile */
+    }
+  
+    #infoOverlay {
+      top: 80px;
+      font-size: 0.9rem;
+    }
+  
+    #infoOverlay p {
+      white-space: nowrap;
     }
   }
   
-  .bouncing {
-    animation: bounce 1s infinite;
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.3rem;
+    }
+  
+    #planksterCanvas {
+      height: 240px;
+    }
+  
+    #infoOverlay {
+      top: 60px;
+    }
+  
+    #infoOverlay p {
+      font-size: 0.8rem;
+    }
+  
+    button {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
+    }
   }
   
