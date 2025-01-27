@@ -1,3 +1,8 @@
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+
 // Global state
 let plankLevel = 1;
 let plankMood = "Chill";
@@ -9,45 +14,50 @@ const plankMoodDisplay = document.getElementById("plankMood");
 const feedbackMsg = document.getElementById("feedbackMsg");
 const startScamBtn = document.getElementById("startScamBtn");
 const scamGameArea = document.getElementById("scamGameArea");
+// Set up the scene, camera, and renderer
+const container = document.getElementById('three-container');
 
-// THREE.js Scene Setup
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf0efe2);
+const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+camera.position.set(0, 1, 3);
 
-const camera = new THREE.PerspectiveCamera(
-  45,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.z = 6;
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
 
-const canvas = document.getElementById("planksterCanvas");
-const renderer = new THREE.WebGLRenderer({ canvas });
-renderer.setSize(window.innerWidth, window.innerHeight);
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+// Add lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5);
+scene.add(directionalLight);
+
+// Load the 3D model
+const loader = new GLTFLoader();
+loader.load('../models/squirrel.glb', (gltf) => {
+    const model = gltf.scene;
+    model.position.set(0, 0, 0);
+    model.scale.set(1, 1, 1);
+    scene.add(model);
+}, undefined, (error) => {
+    console.error('An error occurred while loading the model:', error);
 });
 
-// Load GLB model
-let planksterModel;
-const loader = new THREE.GLTFLoader();
-loader.load(
-  'assets/plank.glb',
-  function(gltf) {
-    scene.add(gltf.scene);
-  },
-  undefined,
-  function(error) {
-    console.error(error);
-  }
-);
+// Add OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.minDistance = 1;
+controls.maxDistance = 10;
+controls.target.set(0, 0.5, 0);
 
-// Licht
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-scene.add(ambientLight);
+// Handle resizing
+window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+});
 
 // Animatieloop
 function animate() {
