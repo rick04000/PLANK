@@ -82,7 +82,7 @@ scene.add(directionalLight);
  ***************************************************/
 const loader = new GLTFLoader();
 loader.load(
-  '/plank.glb', // Update path as needed
+  '../models/plank.glb', // Update path as needed
   (gltf) => {
     planksterModel = gltf.scene;
     planksterModel.scale.set(1, 1, 1);
