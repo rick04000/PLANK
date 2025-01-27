@@ -67,7 +67,7 @@ scene.add(directionalLight);
  ******************************************************/
 const loader = new GLTFLoader();
 loader.load(
-  '../models/pooh_plank_nft.glb',  // Adjust if needed
+  '../assets/plank.glb',  // Adjust if needed
   (gltf) => {
     planksterModel = gltf.scene;
     // Optionally adjust position/scale
