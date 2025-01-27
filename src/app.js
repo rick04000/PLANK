@@ -66,20 +66,25 @@ scene.add(directionalLight);
  * LOAD GLB MODEL (Plankster)
  ******************************************************/
 const loader = new GLTFLoader();
-loader.load(
-  './models/plank.glb',  // Adjust if needed
-  (gltf) => {
+let mixer; // For animations
+loader.load('./models/plank.glb', (gltf) => {
     planksterModel = gltf.scene;
-    // Optionally adjust position/scale
-    planksterModel.position.set(0, 0, 0);
-    planksterModel.scale.set(1, 1, 1);
     scene.add(planksterModel);
-  },
-  undefined,
-  (error) => {
-    console.error('Error loading model:', error);
-  }
-);
+
+    // Apply animations if available
+    if (gltf.animations.length > 0) {
+        mixer = new THREE.AnimationMixer(model);
+        gltf.animations.forEach((clip) => {
+            mixer.clipAction(clip).play();
+        });
+    }
+
+    model.position.set(0, 0, 0);
+    model.scale.set(0.5, 0.5, 0.5); // Adjust scale as needed
+}, undefined, (error) => {
+    console.error('An error occurred:', error);
+});
+
 
 /******************************************************
  * BOUNCE ANIMATION
