@@ -1,8 +1,9 @@
 {
   "name": "plank",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
+    "start": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
