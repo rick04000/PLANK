@@ -178,4 +178,4 @@ function toggleScam() {
  ****************************************************/
 feedBtn?.addEventListener('click', feedPlank);
 moodBtn?.addEventListener('click', triggerMoodSwing);
-scamBtn?.addEventListener('click', toggleScam);
+scamBtn?.addEventListener('click', toggleScam);\
