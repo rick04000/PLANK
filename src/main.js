@@ -35,7 +35,7 @@ scene.add(directionalLight);
 
 // Load the 3D model
 const loader = new GLTFLoader();
-loader.load('../models/squirrel.glb', (gltf) => {
+loader.load('/plank.glb', (gltf) => {
     const model = gltf.scene;
     model.position.set(0, 0, 0);
     model.scale.set(1, 1, 1);
