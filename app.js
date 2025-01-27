@@ -33,7 +33,7 @@ let planksterModel;  // We'll store the loaded model in this variable
 
 const loader = new THREE.GLTFLoader();
 loader.load(
-  "/src/pooh_plank_nft.glb",  // <-- Path to your .glb file
+  "/src/plank.glb",  // <-- Path to your .glb file
   (gltf) => {
     // The loaded model is in gltf.scene
     planksterModel = gltf.scene;
