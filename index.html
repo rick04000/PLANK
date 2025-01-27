@@ -20,17 +20,18 @@
   <main>
     <section id="3d-scene">
       <h2>Meet Plankster</h2>
-      <canvas id="planksterCanvas"></canvas>
-      <div id="infoOverlay">
+      <div id="three-container"></div>
+      <div id="controls">
         <p><strong>Plankster Level:</strong> <span id="plankLevel">1</span></p>
         <p><strong>Mood:</strong> <span id="plankMood">Chill</span></p>
       </div>
     </section>
 
-    <section id="plankster-interactions">
+    <section id="controls">
       <h2>Edgy Interactions</h2>
-      <button id="feedPlankBtn">Feed a Jawbreaker</button>
+      <button id="feedPlankBtn">Feed Plankster</button>
       <button id="triggerReactionBtn">Trigger Mood Swing</button>
+      <button id="startScamBtn">Start Scam</button>
       <p id="feedbackMsg"></p>
     </section>
 
@@ -49,6 +50,6 @@
   </footer>
 
   <!-- Belangrijk: "type=module" inschakelen voor ES modules! -->
-  <script type="module" src="main.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
