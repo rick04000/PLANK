@@ -1,68 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Plankster ($PLNK) – Edgy Meme Experience</title>
-  <!-- CSS Placeholder -->
+  <meta charset="UTF-8">
+  <title>Plankster Test</title>
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Google Fonts (Freckle Face) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header / Branding Section -->
-  <header>
-    <h1>Plankster ($PLNK)</h1>
-    <nav>
-      <ul>
-        <li><a href="#3d-scene">3D Scene</a></li>
-        <li><a href="#plankster-interactions">Interactions</a></li>
-        <li><a href="#minigames">Minigames</a></li>
-      </ul>
-    </nav>
-  </header>
+  <h1>Plankster ($PLNK)</h1>
+  <canvas id="planksterCanvas"></canvas>
 
-  <!-- Main Content -->
-  <main>
-    <!-- 3D Scene Container -->
-    <section id="3d-scene">
-      <h2>Meet Plankster</h2>
-      <!-- This canvas is where Three.js will render our 3D plank -->
-      <canvas id="planksterCanvas"></canvas>
-      <div id="infoOverlay">
-        <!-- Overlay text or stats (e.g., current level, mood, etc.) -->
-        <p><strong>Plankster Level:</strong> <span id="plankLevel">1</span></p>
-        <p><strong>Mood:</strong> <span id="plankMood">Chill</span></p>
-      </div>
-    </section>
-
-    <!-- Interaction Controls -->
-    <section id="plankster-interactions">
-      <h2>Edgy Interactions</h2>
-      <button id="feedPlankBtn">Feed a Jawbreaker</button>
-      <button id="triggerReactionBtn">Trigger Mood Swing</button>
-      <p id="feedbackMsg"></p>
-    </section>
-
-    <!-- Minigames or “Scams” Section -->
-    <section id="minigames">
-      <h2>Run a Scam</h2>
-      <p>Help Plankster pull off a wacky scheme for extra tokens!</p>
-      <!-- Placeholder for minigame UI -->
-      <button id="startScamBtn">Start Scam</button>
-      <div id="scamGameArea" style="display: none;">
-        <!-- This is where the minigame or puzzle interface could appear -->
-        <p>Minigame content goes here...</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Plankster. All rights reserved. Meme responsibly.</p>
-  </footer>
-
-  <!-- External JavaScript Libraries & Main App JS -->
-  <!-- We'll add Three.js and our main script next step -->
-  <script src="three.min.js"></script>
+  <!-- Include Three.js from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
+  <!-- Include the GLTFLoader from the examples folder (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  <!-- Your main JS file -->
   <script src="app.js"></script>
 </body>
 </html>
