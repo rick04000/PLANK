@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Plank</title>
+  <!-- Link to Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- Placeholder for custom styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Main container -->
+  <div id="app">
+    <!-- Container for the plank model -->
+    <div id="model-container"></div>
+
+    <!-- UI Controls -->
+    <div id="controls">
+      <button id="feed-jawbreaker">Feed Jawbreaker</button>
+      <div>
+        <label for="mood-select">Set Mood:</label>
+        <select id="mood-select">
+          <option value="Chill">Chill</option>
+          <option value="Salty">Salty</option>
+          <option value="Edgy AF">Edgy AF</option>
+          <option value="Hyped">Hyped</option>
+          <option value="Hangry">Hangry</option>
+          <option value="Spaced Out">Spaced Out</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Pop-up indicators -->
+    <div id="status-indicators">
+      <p>Level: <span id="level-indicator">1</span></p>
+      <p>Mood: <span id="mood-indicator">Chill</span></p>
+    </div>
+  </div>
+
+  <!-- Placeholder for custom scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
