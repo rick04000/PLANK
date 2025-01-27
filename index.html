@@ -2,54 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Plankster ($PLNK)</title>
+  <title>Plankster Bouncy Demo</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Plankster ($PLNK)</h1>
-    <nav>
-      <ul>
-        <li><a href="#3d-scene">3D Scene</a></li>
-        <li><a href="#plankster-interactions">Interactions</a></li>
-        <li><a href="#minigames">Minigames</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- 3D Container -->
+  <div id="three-container" style="width: 800px; height: 600px; margin: auto;"></div>
+  
+  <!-- Interaction Buttons -->
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="feedPlankBtn">Feed Plankster</button>
+    <button id="triggerReactionBtn">Trigger Mood Swing</button>
+  </div>
+  
+  <!-- Feedback / Stats -->
+  <div style="text-align:center; margin:1rem;">
+    <p>Level: <span id="plankLevel">1</span></p>
+    <p>Mood: <span id="plankMood">Chill</span></p>
+    <p id="feedbackMsg"></p>
+  </div>
+  
+  <!-- Scam Minigame Placeholder -->
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="startScamBtn">Start Scam</button>
+    <div id="scamGameArea" style="display: none; border:1px dashed #999; padding:1rem; margin:1rem; width:50%; margin:auto;">
+      <p>A silly mini-game goes here...</p>
+    </div>
+  </div>
 
-  <main>
-    <section id="3d-scene">
-      <h2>Meet Plankster</h2>
-      <div id="three-container"></div>
-      <div id="controls">
-        <p><strong>Plankster Level:</strong> <span id="plankLevel">1</span></p>
-        <p><strong>Mood:</strong> <span id="plankMood">Chill</span></p>
-      </div>
-    </section>
-
-    <section id="controls">
-      <h2>Edgy Interactions</h2>
-      <button id="feedPlankBtn">Feed Plankster</button>
-      <button id="triggerReactionBtn">Trigger Mood Swing</button>
-      <button id="startScamBtn">Start Scam</button>
-      <p id="feedbackMsg"></p>
-    </section>
-
-    <section id="minigames">
-      <h2>Run a Scam</h2>
-      <p>Help Plankster pull off a wacky scheme for extra tokens!</p>
-      <button id="startScamBtn">Start Scam</button>
-      <div id="scamGameArea" style="display: none;">
-        <p>Minigame content goes here...</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Plankster. All rights reserved. Meme responsibly.</p>
-  </footer>
-
-  <!-- Belangrijk: "type=module" inschakelen voor ES modules! -->
+  <!-- Scene Chooser (Background Images) -->
+  <div style="text-align:center; margin-top:1rem;">
+    <p>Select a Background Scene:</p>
+    <button id="bg1Btn">Scene 1</button>
+    <button id="bg2Btn">Scene 2</button>
+    <button id="bg3Btn">Scene 3</button>
+    <button id="bg4Btn">Scene 4</button>
+  </div>
+  
+  <!-- Main JS -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
