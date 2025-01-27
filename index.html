@@ -2,43 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Plank</title>
-  <!-- Link to Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <!-- Placeholder for custom styles -->
+  <title>Plankster Bouncy Demo</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Main container -->
-  <div id="app">
-    <!-- Container for the plank model -->
-    <div id="model-container"></div>
-
-    <!-- UI Controls -->
-    <div id="controls">
-      <button id="feed-jawbreaker">Feed Jawbreaker</button>
-      <div>
-        <label for="mood-select">Set Mood:</label>
-        <select id="mood-select">
-          <option value="Chill">Chill</option>
-          <option value="Salty">Salty</option>
-          <option value="Edgy AF">Edgy AF</option>
-          <option value="Hyped">Hyped</option>
-          <option value="Hangry">Hangry</option>
-          <option value="Spaced Out">Spaced Out</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Pop-up indicators -->
-    <div id="status-indicators">
-      <p>Level: <span id="level-indicator">1</span></p>
-      <p>Mood: <span id="mood-indicator">Chill</span></p>
+  <!-- 3D Container -->
+  <div id="three-container" style="width: 800px; height: 600px; margin: auto;"></div>
+  
+  <!-- Interaction Buttons -->
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="feedPlankBtn">Feed Plankster</button>
+    <button id="triggerReactionBtn">Trigger Mood Swing</button>
+  </div>
+  
+  <!-- Feedback / Stats -->
+  <div style="text-align:center; margin:1rem;">
+    <p>Level: <span id="plankLevel">1</span></p>
+    <p>Mood: <span id="plankMood">Chill</span></p>
+    <p id="feedbackMsg"></p>
+  </div>
+  
+  <!-- Scam Minigame Placeholder -->
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="startScamBtn">Start Scam</button>
+    <div id="scamGameArea" style="display: none; border:1px dashed #999; padding:1rem; margin:1rem; width:50%; margin:auto;">
+      <p>A silly mini-game goes here...</p>
     </div>
   </div>
 
-  <!-- Placeholder for custom scripts -->
-  <script src="script.js"></script>
+  <!-- Scene Chooser (Background Images) -->
+  <div style="text-align:center; margin-top:1rem;">
+    <p>Select a Background Scene:</p>
+    <button id="bg1Btn">Scene 1</button>
+    <button id="bg2Btn">Scene 2</button>
+    <button id="bg3Btn">Scene 3</button>
+    <button id="bg4Btn">Scene 4</button>
+  </div>
+  
+  <!-- Main JS -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
