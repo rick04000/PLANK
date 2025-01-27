@@ -1,45 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Plankster Bouncy Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plankster ($PLNK) – Edgy Meme Experience</title>
+  <!-- CSS Placeholder -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- 3D Container -->
-  <div id="three-container" style="width: 800px; height: 600px; margin: auto;"></div>
-  
-  <!-- Interaction Buttons -->
-  <div style="text-align:center; margin-top:1rem;">
-    <button id="feedPlankBtn">Feed Plankster</button>
-    <button id="triggerReactionBtn">Trigger Mood Swing</button>
-  </div>
-  
-  <!-- Feedback / Stats -->
-  <div style="text-align:center; margin:1rem;">
-    <p>Level: <span id="plankLevel">1</span></p>
-    <p>Mood: <span id="plankMood">Chill</span></p>
-    <p id="feedbackMsg"></p>
-  </div>
-  
-  <!-- Scam Minigame Placeholder -->
-  <div style="text-align:center; margin-top:1rem;">
-    <button id="startScamBtn">Start Scam</button>
-    <div id="scamGameArea" style="display: none; border:1px dashed #999; padding:1rem; margin:1rem; width:50%; margin:auto;">
-      <p>A silly mini-game goes here...</p>
-    </div>
-  </div>
+  <!-- Header / Branding Section -->
+  <header>
+    <h1>Plankster ($PLNK)</h1>
+    <nav>
+      <ul>
+        <li><a href="#3d-scene">3D Scene</a></li>
+        <li><a href="#plankster-interactions">Interactions</a></li>
+        <li><a href="#minigames">Minigames</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Scene Chooser (Background Images) -->
-  <div style="text-align:center; margin-top:1rem;">
-    <p>Select a Background Scene:</p>
-    <button id="bg1Btn">Scene 1</button>
-    <button id="bg2Btn">Scene 2</button>
-    <button id="bg3Btn">Scene 3</button>
-    <button id="bg4Btn">Scene 4</button>
-  </div>
-  
-  <!-- Main JS -->
-  <script type="module" src="app.js"></script>
+  <!-- Main Content -->
+  <main>
+    <!-- 3D Scene Container -->
+    <section id="3d-scene">
+      <h2>Meet Plankster</h2>
+      <!-- This canvas is where Three.js will render our 3D plank -->
+      <canvas id="planksterCanvas"></canvas>
+      <div id="infoOverlay">
+        <!-- Overlay text or stats (e.g., current level, mood, etc.) -->
+        <p><strong>Plankster Level:</strong> <span id="plankLevel">1</span></p>
+        <p><strong>Mood:</strong> <span id="plankMood">Chill</span></p>
+      </div>
+    </section>
+
+    <!-- Interaction Controls -->
+    <section id="plankster-interactions">
+      <h2>Edgy Interactions</h2>
+      <button id="feedPlankBtn">Feed a Jawbreaker</button>
+      <button id="triggerReactionBtn">Trigger Mood Swing</button>
+      <p id="feedbackMsg"></p>
+    </section>
+
+    <!-- Minigames or “Scams” Section -->
+    <section id="minigames">
+      <h2>Run a Scam</h2>
+      <p>Help Plankster pull off a wacky scheme for extra tokens!</p>
+      <!-- Placeholder for minigame UI -->
+      <button id="startScamBtn">Start Scam</button>
+      <div id="scamGameArea" style="display: none;">
+        <!-- This is where the minigame or puzzle interface could appear -->
+        <p>Minigame content goes here...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Plankster. All rights reserved. Meme responsibly.</p>
+  </footer>
+
+  <!-- External JavaScript Libraries & Main App JS -->
+  <!-- We'll add Three.js and our main script next step -->
+  <script src="three.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
