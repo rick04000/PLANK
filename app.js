@@ -36,16 +36,16 @@ window.addEventListener("resize", () => {
 
 // Load GLB model
 let planksterModel;
-const loader = new GLTFLoader();
+const loader = new THREE.GLTFLoader();
 loader.load(
-  '/assets/plank.glb', // Bestaat in public-map
-  (gltf) => {
-    planksterModel = gltf.scene;
-    planksterModel.scale.set(1, 1, 1);
-    scene.add(planksterModel);
+  'src/pooh_plank_nft.glb',
+  function(gltf) {
+    scene.add(gltf.scene);
   },
-  (xhr) => { console.log((xhr.loaded / xhr.total * 100) + "% loaded"); },
-  (error) => { console.error("An error occurred:", error); }
+  undefined,
+  function(error) {
+    console.error(error);
+  }
 );
 
 // Licht
