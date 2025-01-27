@@ -265,4 +265,8 @@
       padding: 0.5rem 0.75rem;
     }
   }
-  
+
+  #three-container {
+    width: 75vw;
+    height: 75vh;
+  }
