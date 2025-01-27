@@ -38,7 +38,7 @@ window.addEventListener("resize", () => {
 let planksterModel;
 const loader = new THREE.GLTFLoader();
 loader.load(
-  'src/pooh_plank_nft.glb',
+  'assets/plank.glb',
   function(gltf) {
     scene.add(gltf.scene);
   },
