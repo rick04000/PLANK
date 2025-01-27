@@ -1,219 +1,130 @@
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+/************************************************
+ * app.js – Main JavaScript for Plankster ($PLNK)
+ * 
+ * 1. Initializes Three.js scene, camera, and renderer.
+ * 2. Loads a simple "Plank" mesh as a stand-in for Plankster.
+ * 3. Implements feeding and mood change interactions.
+ ************************************************/
 
-/******************************************************
- * DOM ELEMENTS
- ******************************************************/
-const container = document.getElementById('three-container');
-
-// Buttons / UI
-const feedBtn = document.getElementById('feedPlankBtn');
-const moodBtn = document.getElementById('triggerReactionBtn');
-const scamBtn = document.getElementById('startScamBtn');
-const bg1Btn = document.getElementById('bg1Btn');
-const bg2Btn = document.getElementById('bg2Btn');
-const bg3Btn = document.getElementById('bg3Btn');
-const bg4Btn = document.getElementById('bg4Btn');
-
-// Displays
-const plankLevelDisplay = document.getElementById('plankLevel');
-const plankMoodDisplay = document.getElementById('plankMood');
-const feedbackMsg = document.getElementById('feedbackMsg');
-const scamGameArea = document.getElementById('scamGameArea');
-
-/******************************************************
- * GLOBAL STATES
- ******************************************************/
+// Global state variables
 let plankLevel = 1;
-let plankMood = 'Chill';
-let isScamActive = false;  // For toggling minigame area
-let planksterModel = null; // Reference to loaded model
+let plankMood = "Chill";
+let isScamActive = false; // For our minigame placeholder
 
-// If you want to store multiple materials for color changes:
-const defaultColor = new THREE.Color(0xffffff); // We'll restore to this
-const altColor = new THREE.Color(0x00ff00);     // Example "fed" color
+// DOM element references
+const plankLevelDisplay = document.getElementById("plankLevel");
+const plankMoodDisplay = document.getElementById("plankMood");
+const feedbackMsg = document.getElementById("feedbackMsg");
+const startScamBtn = document.getElementById("startScamBtn");
+const scamGameArea = document.getElementById("scamGameArea");
 
-/******************************************************
- * THREE.JS SCENE SETUP
- ******************************************************/
-// Scene
+// ========== THREE.JS SETUP ========== //
+
+// 1. Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf0efe2);
+scene.background = new THREE.Color(0xf0efe2); // Light cartoony background
 
-// Camera
+// 2. Camera
+// FOV, aspect ratio, near clipping, far clipping
 const camera = new THREE.PerspectiveCamera(
-  75,
-  container.clientWidth / container.clientHeight,
-  0.1,
+  45, 
+  window.innerWidth / window.innerHeight, 
+  0.1, 
   1000
 );
-camera.position.set(0, 1, 3);
+camera.position.z = 6; // Move camera back slightly
 
-// Renderer
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(container.clientWidth, container.clientHeight);
-container.appendChild(renderer.domElement);
+// 3. Renderer
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("planksterCanvas") });
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-// Lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+// 4. Resizing
+window.addEventListener("resize", onWindowResize, false);
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// 5. Create a "Plank" Mesh
+//    Using a simple BoxGeometry as a stand-in for a tall plank
+const plankGeometry = new THREE.BoxGeometry(1, 3, 0.2);
+const plankMaterial = new THREE.MeshBasicMaterial({ color: 0xb5651d }); // A wood-like brown
+const plankMesh = new THREE.Mesh(plankGeometry, plankMaterial);
+scene.add(plankMesh);
+
+// Optional: Add a simple ambient light so we can see the plank better
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(5, 10, 7.5);
-scene.add(directionalLight);
+// ========== ANIMATION LOOP ========== //
 
-/******************************************************
- * LOAD GLB MODEL (Plankster)
- ******************************************************/
-const loader = new GLTFLoader();
-loader.load(
-  '../assets/plank.glb',  // Adjust if needed
-  (gltf) => {
-    planksterModel = gltf.scene;
-    // Optionally adjust position/scale
-    planksterModel.position.set(0, 0, 0);
-    planksterModel.scale.set(1, 1, 1);
-    scene.add(planksterModel);
-  },
-  undefined,
-  (error) => {
-    console.error('Error loading model:', error);
-  }
-);
-
-/******************************************************
- * BOUNCE ANIMATION
- * We'll animate by adjusting the Y position
- ******************************************************/
-const clock = new THREE.Clock();
-const bounceSpeed = 3;       // How fast it bounces
-const bounceAmplitude = 0.05; // How high it bounces
-
-/******************************************************
- * ANIMATE LOOP
- ******************************************************/
 function animate() {
   requestAnimationFrame(animate);
-  
-  const elapsed = clock.getElapsedTime();
-  
-  // If model is loaded, we do a gentle bounce
-  if (planksterModel) {
-    const bounce = Math.sin(elapsed * bounceSpeed) * bounceAmplitude;
-    planksterModel.position.y = bounce;
-  }
+
+  // Simple rotation for Plankster
+  plankMesh.rotation.y += 0.01;
+  plankMesh.rotation.x += 0.005;
 
   renderer.render(scene, camera);
 }
+
 animate();
 
-/******************************************************
- * INTERACTIONS
- ******************************************************/
+// ========== INTERACTIVITY LOGIC ========== //
 
-// 1. Feed
+// Feeding logic
+document.getElementById("feedPlankBtn").addEventListener("click", feedPlank);
+
 function feedPlank() {
+  // Increase level, update display
   plankLevel++;
   plankLevelDisplay.textContent = plankLevel;
-  
-  feedbackMsg.textContent = 'Plankster munches on a jawbreaker!';
-  setTimeout(() => { feedbackMsg.textContent = ''; }, 2000);
 
-  // Example: Scale up slightly each time
-  if (planksterModel) {
-    planksterModel.scale.x += 0.01;
-    planksterModel.scale.y += 0.01;
-    planksterModel.scale.z += 0.01;
-  }
-
-  // Example: Change color briefly
-  if (planksterModel) {
-    planksterModel.traverse((child) => {
-      if (child.isMesh) {
-        child.material.color.set(altColor);
-      }
-    });
-  }
-  // Restore color after a short delay
+  // Quick comedic feedback
+  feedbackMsg.textContent = "Plankster munches on a jawbreaker!";
   setTimeout(() => {
-    if (planksterModel) {
-      planksterModel.traverse((child) => {
-        if (child.isMesh) {
-          child.material.color.set(defaultColor);
-        }
-      });
-    }
-  }, 1500);
+    feedbackMsg.textContent = "";
+  }, 2000);
 
-  // Mood changes at certain levels
+  // Potential advanced logic: 
+  // If level hits certain milestones, change color, mood, or other visuals
   if (plankLevel === 5) {
-    plankMood = 'Hyper';
+    plankMood = "Hyper";
+    plankMoodDisplay.textContent = plankMood;
   } else if (plankLevel === 10) {
-    plankMood = 'Jawbreaker Junkie';
+    plankMood = "Jawbreaker Junkie";
+    plankMoodDisplay.textContent = plankMood;
   }
-  plankMoodDisplay.textContent = plankMood;
 }
 
-// 2. Mood Swing
+// Mood swing logic
+document.getElementById("triggerReactionBtn").addEventListener("click", triggerMoodSwing);
+
 function triggerMoodSwing() {
-  const moods = ['Chill', 'Salty', 'Edgy AF', 'Hyped', 'Hangry', 'Spaced Out'];
+  // Randomize moods for edgy comedic effect
+  const moods = ["Chill", "Salty", "Edgy AF", "Hyped", "Hangry", "Spaced Out"];
   plankMood = moods[Math.floor(Math.random() * moods.length)];
   plankMoodDisplay.textContent = plankMood;
 
+  // Cheeky message
   feedbackMsg.textContent = `Plankster is feeling: ${plankMood}`;
-  setTimeout(() => { feedbackMsg.textContent = ''; }, 2000);
+  setTimeout(() => {
+    feedbackMsg.textContent = "";
+  }, 2000);
 }
 
-// 3. Scam Toggle
-function toggleScam() {
+// Minigame / Scam placeholder
+startScamBtn.addEventListener("click", () => {
   isScamActive = !isScamActive;
-  scamGameArea.style.display = isScamActive ? 'block' : 'none';
+  scamGameArea.style.display = isScamActive ? "block" : "none";
 
-  feedbackMsg.textContent = isScamActive
-    ? 'Plankster is up to no good! Scam in progress...'
-    : 'Scam ended. The cul-de-sac is safe... for now.';
-  
-  setTimeout(() => { feedbackMsg.textContent = ''; }, 3000);
-}
-
-/******************************************************
- * SCENE CHOOSER (BACKGROUND IMAGES)
- * We'll just set container.style.background as an example.
- ******************************************************/
-function setSceneBackground(sceneNumber) {
-  // Replace these with actual image URLs or local paths
-  const backgrounds = [
-    'url("assets/bg1.jpg")',
-    'url("assets/bg2.jpg")',
-    'url("assets/bg3.jpg")',
-    'url("assets/bg4.jpg")'
-  ];
-  
-  // Safety check in case we exceed the array
-  if (sceneNumber < 1 || sceneNumber > backgrounds.length) return;
-  
-  container.style.backgroundImage = backgrounds[sceneNumber - 1];
-  container.style.backgroundSize = 'cover';
-  container.style.backgroundPosition = 'center';
-}
-
-/******************************************************
- * ATTACH EVENT LISTENERS
- ******************************************************/
-feedBtn?.addEventListener('click', feedPlank);
-moodBtn?.addEventListener('click', triggerMoodSwing);
-scamBtn?.addEventListener('click', toggleScam);
-
-bg1Btn?.addEventListener('click', () => setSceneBackground(1));
-bg2Btn?.addEventListener('click', () => setSceneBackground(2));
-bg3Btn?.addEventListener('click', () => setSceneBackground(3));
-bg4Btn?.addEventListener('click', () => setSceneBackground(4));
-
-/******************************************************
- * HANDLE WINDOW RESIZE
- ******************************************************/
-window.addEventListener('resize', () => {
-  camera.aspect = container.clientWidth / container.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(container.clientWidth, container.clientHeight);
+  if (isScamActive) {
+    feedbackMsg.textContent = "Plankster is up to no good! Scam in progress...";
+  } else {
+    feedbackMsg.textContent = "Scam ended. The cul-de-sac is safe... for now.";
+  }
+  setTimeout(() => {
+    feedbackMsg.textContent = "";
+  }, 3000);
 });
